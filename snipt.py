@@ -1,4 +1,4 @@
-import sublime, sublime_plugin, urllib, json, os, re
+import sublime, sublime_plugin, urllib2, json, os, re
 
 class SyncSniptCommand(sublime_plugin.TextCommand):
 
@@ -15,8 +15,14 @@ class SyncSniptCommand(sublime_plugin.TextCommand):
         if (not self.username):
             sublime.error_message('No snipt.net username. You must first set you username in: Sublime Text2 ~> Preferences ~> Package Settings ~> Snipt Tools ~> Settings')
         else:
-            # grab all user account
-            response = urllib.urlopen('http://snipt.net/api/users/%s.json' % username)
+            # grab the user data
+            try:
+                response = urllib2.urlopen('http://snipt.net/api/users/%s.json' % username)
+            except urllib2.URLError, (err):
+                sublime.error_message("Connection refused. Try again later. Snipt step: 1")
+                return
+            
+            # grab all user snipt #'s
             parse = json.load(response)
             parse_me = parse['snipts']
 
@@ -25,8 +31,15 @@ class SyncSniptCommand(sublime_plugin.TextCommand):
 
             # run the loop
             for item in parse_me:
+                
                 # grab the user url and parse the snipts
-                response = urllib.urlopen('http://beta.snipt.net/api/public/snipt/%s/?format=json' % item)
+                try:
+                    response = urllib2.urlopen('http://beta.snipt.net/api/public/snipt/%s/?format=json' % item)
+                except urllib2.URLError, (err):
+                    sublime.error_message("Connection refused. Try again later. Snipt step: 2")
+                    return
+
+                # parse the response for code snipt 
                 parse = json.load(response)
                 code = parse['code']
 
@@ -41,6 +54,7 @@ class SyncSniptCommand(sublime_plugin.TextCommand):
                 newfile.write('<snippet><content><![CDATA[%s]]></content><tabTrigger>snipt</tabTrigger></snippet>' % code)
                 newfile.close()
 
-class CreateSniptCommand(sublime_plugin.TextCommand):
-    def run(self, edit):
-        print 1
+# This is coming soon. Ability to send text to snipt.net and create a sublime snippet.
+# class CreateSniptCommand(sublime_plugin.TextCommand):
+#     def run(self, edit):
+#         print 1
