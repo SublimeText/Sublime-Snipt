@@ -4,7 +4,8 @@ Sublime Snipt is a Sublime Text 2 plugin that will sync with snipt.net. Once act
 ## Installation
 ### Using Git
 Go to your Sublime Text 2 Packages directory and clone the repository using the command below:
-    git clone https://github.com/Taecho/Sublime-Snipt
+    
+    `git clone https://github.com/Taecho/Sublime-Snipt`
 
 ### Download Manually
 
