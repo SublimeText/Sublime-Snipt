@@ -1,0 +1,3 @@
+[
+	{ "keys": ["command+shift+z"], "command": "sync_snipt" }
+]

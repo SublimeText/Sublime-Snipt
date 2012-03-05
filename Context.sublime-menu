@@ -1,0 +1,12 @@
+[
+    { "id": "reveal" },
+    { "caption": "Snipt Tools",
+        "children":
+            [
+                { "id": "reveal" },
+                { "command": "create_snipt", "caption": "Turn into a snipt (Send to snipt.net)" },
+                { "caption": "-" },
+                { "command": "sync_snipt", "caption": "Sync with snipt.net" }
+            ] 
+    }
+]

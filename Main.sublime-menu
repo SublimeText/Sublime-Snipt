@@ -1,0 +1,42 @@
+[
+    {
+        "id": "edit",
+        "children":
+        [
+            { "id": "characters" },
+            { "caption": "-" },
+            { "caption": "Snipt Tools", "children" :
+                [
+                    { "command": "sync_snipt", "caption": "Sync with snipt.net"}
+                ]
+            }
+        ]
+    },
+    {
+        "caption": "Preferences",
+        "mnemonic": "n",
+        "id": "preferences",
+        "children":
+        [
+            {
+                "caption": "Package Settings",
+                "mnemonic": "P",
+                "id": "package-settings",
+                "children":
+                [
+                    {
+                        "caption": "Snipt Tools",
+                        "children":
+                        [
+                            {
+                                "command": "open_file",
+                                "args": {"file": "${packages}/snipt/Snipt.sublime-settings"},
+                                "caption": "Settings"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
