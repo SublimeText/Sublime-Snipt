@@ -27,7 +27,11 @@ class SyncSniptCommand(sublime_plugin.TextCommand):
             parse_me = parse['snipts']
 
         	# current location + repo
-            cwd = os.getcwd() + '/repo/'
+            cwd = os.path.abspath(os.curdir) + '/repo/'
+
+            # # packet_file = "%s/%s/%s/%s.mol2" % ("dir", "dir2", "dir3", "some_file")
+            # print cwd
+            # return
 
             # run the loop
             for item in parse_me:

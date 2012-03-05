@@ -28,3 +28,4 @@ All snipt.net snippets can be called up as you type "snipt" in the Sublime edito
 + User option to limit snipts via tags (only display css snippets on css files)
 + Select and Highlight text to send to snipt.net
 + Python: thread snipt downloading
++ Escape Snipts that include CDATA (these currently break)
