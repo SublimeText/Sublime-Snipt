@@ -26,13 +26,6 @@ class SyncSniptCommand(sublime_plugin.TextCommand):
             parse = json.load(response)
             parse_me = parse['snipts']
 
-        	# current location + repo
-            cwd = os.path.abspath(os.curdir) + '/repo/'
-
-            # # packet_file = "%s/%s/%s/%s.mol2" % ("dir", "dir2", "dir3", "some_file")
-            # print cwd
-            # return
-
             # run the loop
             for item in parse_me:
                 
@@ -46,17 +39,20 @@ class SyncSniptCommand(sublime_plugin.TextCommand):
                 # parse the response for code snipt 
                 parse = json.load(response)
                 code = parse['code']
+                clean = 'CDATA'
 
-                # cleaning the title for filename
-                title = parse['title']
-                rx = re.compile('\W+')
-                cleantitle = rx.sub(' ', title).strip()
+                # cleaning CDATA
+                if not clean in code:
+                    # cleaning the title for filename
+                    title = parse['title']
+                    rx = re.compile('\W+')
+                    cleantitle = rx.sub(' ', title).strip()
 
-                # lets turn wine (snipts) into water (sublime snippets)
-                buildfile = cwd + '%s.sublime-snippet' % cleantitle[0:20]
-                newfile = open(buildfile,'w')
-                newfile.write('<snippet><content><![CDATA[%s]]></content><tabTrigger>snipt</tabTrigger></snippet>' % code)
-                newfile.close()
+                    # lets turn wine (snipts) into water (sublime snippets)
+                    buildfile = 'repo/%s.sublime-snippet' % cleantitle[0:20]
+                    newfile = open(buildfile,'w+')
+                    newfile.write('<snippet><content><![CDATA[%s]]></content><tabTrigger>snipt</tabTrigger></snippet>' % code)
+                    newfile.close()
 
 # This is coming soon. Ability to send text to snipt.net and create a sublime snippet.
 # class CreateSniptCommand(sublime_plugin.TextCommand):
